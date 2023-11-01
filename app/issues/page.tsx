@@ -1,11 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const IssuesPage = () => {
-    return (
-        <div>
-            Issues Page
-        </div>
-    );
-};
+    return <div>Issues Page</div>
+}
 
-export default IssuesPage;
+export default IssuesPage
