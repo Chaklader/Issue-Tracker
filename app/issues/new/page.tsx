@@ -29,7 +29,7 @@ const NewIssuePage = () => {
     const [error, setError] = useState('')
     const [isSubmitting, setSubmitting] = useState(false)
 
-    const handle = async (data: IssueForm) => {
+    const onSubmit = async (data: IssueForm) => {
         try {
             setSubmitting(true)
             await axios.post('/api/issues', data)
@@ -48,7 +48,7 @@ const NewIssuePage = () => {
                     <Callout.Text>{error}</Callout.Text>
                 </Callout.Root>
             )}
-            <form className="space-y-3" onSubmit={handleSubmit(handle)}>
+            <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
                 <TextField.Root>
                     <TextField.Input
                         placeholder="Title"
