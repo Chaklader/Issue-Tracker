@@ -1,11 +1,10 @@
 import React from 'react'
 import { Table } from '@radix-ui/themes'
-import prisma from '@/prisma/client'
-import { IssueStatusBadge, Link } from '@/app/components'
-import IssueActions from '@/app/issues/IssueActions'
+import { Skeleton } from '@/app/components'
+import IssueActions from '@/app/issues/list/IssueActions'
 
-const IssuesPage = async () => {
-    const issues = await prisma.issue.findMany()
+const LoadingIssuePage = () => {
+    const issues = [1, 2, 3, 4, 5]
 
     return (
         <div>
@@ -24,22 +23,20 @@ const IssuesPage = async () => {
                 </Table.Header>
                 <Table.Body>
                     {issues.map((issue) => (
-                        <Table.Row key={issue.id}>
+                        <Table.Row key={issue}>
                             <Table.Cell>
-                                <Link href={`/issues/${issue.id}`}>
-                                    {issue.title}
-                                </Link>
+                                <Skeleton />
                                 <div className="block md:hidden">
-                                    <IssueStatusBadge status={issue.status} />
+                                    <Skeleton />
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="hidden md:table-cell">
                                 <div>
-                                    <IssueStatusBadge status={issue.status} />
+                                    <Skeleton />
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="hidden md:table-cell">
-                                {issue.createAt.toDateString()}
+                                <Skeleton />
                             </Table.Cell>
                         </Table.Row>
                     ))}
@@ -49,7 +46,4 @@ const IssuesPage = async () => {
     )
 }
 
-export const dynamic = 'force-dynamic'
-// export const revalidate = 60
-
-export default IssuesPage
+export default LoadingIssuePage

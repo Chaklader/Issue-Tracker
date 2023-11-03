@@ -1,10 +1,11 @@
 import React from 'react'
 import { Table } from '@radix-ui/themes'
-import { Skeleton } from '@/app/components'
-import IssueActions from '@/app/issues/IssueActions'
+import prisma from '@/prisma/client'
+import { IssueStatusBadge, Link } from '@/app/components'
+import IssueActions from '@/app/issues/list/IssueActions'
 
-const LoadingIssuePage = () => {
-    const issues = [1, 2, 3, 4, 5]
+const IssuesPage = async () => {
+    const issues = await prisma.issue.findMany()
 
     return (
         <div>
@@ -23,20 +24,22 @@ const LoadingIssuePage = () => {
                 </Table.Header>
                 <Table.Body>
                     {issues.map((issue) => (
-                        <Table.Row key={issue}>
+                        <Table.Row key={issue.id}>
                             <Table.Cell>
-                                <Skeleton />
+                                <Link href={`/issues/${issue.id}`}>
+                                    {issue.title}
+                                </Link>
                                 <div className="block md:hidden">
-                                    <Skeleton />
+                                    <IssueStatusBadge status={issue.status} />
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="hidden md:table-cell">
                                 <div>
-                                    <Skeleton />
+                                    <IssueStatusBadge status={issue.status} />
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="hidden md:table-cell">
-                                <Skeleton />
+                                {issue.createAt.toDateString()}
                             </Table.Cell>
                         </Table.Row>
                     ))}
@@ -46,4 +49,7 @@ const LoadingIssuePage = () => {
     )
 }
 
-export default LoadingIssuePage
+export const dynamic = 'force-dynamic'
+// export const revalidate = 60
+
+export default IssuesPage
