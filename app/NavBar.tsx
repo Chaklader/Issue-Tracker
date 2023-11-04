@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { AiFillBug } from 'react-icons/ai'
 import { usePathname } from 'next/navigation'
 import classnames from 'classnames'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import {
     Avatar,
     Box,
@@ -27,8 +27,8 @@ const NavBar = () => {
                         </Link>
                         <NavLinks />
                     </Flex>
+                    <AuthStatus />
                 </Flex>
-                <AuthStatus />
             </Container>
         </nav>
     )
@@ -90,8 +90,8 @@ const AuthStatus = () => {
                     <DropdownMenu.Label>
                         <Text size="2">{session?.user?.email}</Text>
                     </DropdownMenu.Label>
-                    <DropdownMenu.Item>
-                        <Link href="/api/auth/signout">Log Out</Link>
+                    <DropdownMenu.Item onSelect={() => signOut()}>
+                        Log Out
                     </DropdownMenu.Item>
                 </DropdownMenu.Content>
             </DropdownMenu.Root>
