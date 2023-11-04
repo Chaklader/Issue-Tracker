@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Select } from '@radix-ui/themes'
 import { User } from '@prisma/client'
 import axios from 'axios'
