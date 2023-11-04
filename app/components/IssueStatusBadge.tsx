@@ -12,7 +12,6 @@ const statusMap: Record<
 }
 
 const IssueStatusBadge = ({ status }: { status: Status }) => {
-    console.log(statusMap[status].color)
     return (
         <Badge color={statusMap[status].color}>{statusMap[status].label}</Badge>
     )
