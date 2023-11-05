@@ -1,8 +1,7 @@
-import Image from 'next/image'
-import Pagination from '@/app/components/Pagination'
-import LatestIssues from '@/app/LatestIssues'
 import IssueSummary from '@/app/IssueSummary'
 import prisma from '@/prisma/client'
+import IssueCharts from '@/app/IssueCharts'
+import { Flex } from '@radix-ui/themes'
 
 export default async function Home() {
     const open = await prisma.issue.count({
@@ -16,9 +15,9 @@ export default async function Home() {
     })
 
     return (
-        <>
+        <Flex direction="column" gap="5">
             <IssueSummary open={open} inProgress={inProgress} closed={closed} />
-            {/*<LatestIssues />*/}
-        </>
+            <IssueCharts open={open} inProgress={inProgress} closed={closed} />
+        </Flex>
     )
 }
